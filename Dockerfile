@@ -7,8 +7,8 @@ LABEL maintainer="Arnaud Becheler" \
 ARG DEBIAN_FRONTEND=noninteractive
      
 ENV TZ=Europe/Berlin
-RUN apt-get update -y && \
-    apt-get install -y tzdataRUN apt-get install -y --no-install-recommends\
+RUN apt-get update -y &&
+RUN apt-get install -y --no-install-recommends\
                     git \
                     gcc-9 \
                     g++ \
