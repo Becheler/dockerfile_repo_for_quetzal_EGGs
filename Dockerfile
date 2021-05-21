@@ -19,7 +19,11 @@ RUN apt-get install -y --no-install-recommends\
                     unzip \
                     tar \
                     ca-certificates
-                    
+
+# Update C env vars so compiler can find gdal
+ENV CPLUS_INCLUDE_PATH=/usr/include/gdal
+ENV C_INCLUDE_PATH=/usr/include/gdal
+
 RUN apt-get autoclean && \
     apt-get autoremove && \
     apt-get clean && \
