@@ -7,7 +7,7 @@ LABEL maintainer="Arnaud Becheler" \
 ARG DEBIAN_FRONTEND=noninteractive
      
 ENV TZ=Europe/Berlin
-RUN apt-get update -y &&
+RUN apt-get update -y
 RUN apt-get install -y --no-install-recommends\
                     git \
                     gcc-9 \
@@ -18,8 +18,9 @@ RUN apt-get install -y --no-install-recommends\
                     cmake \
                     unzip \
                     tar \
-                    ca-certificates && \
-    apt-get autoclean && \
+                    ca-certificates
+                    
+RUN apt-get autoclean && \
     apt-get autoremove && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
