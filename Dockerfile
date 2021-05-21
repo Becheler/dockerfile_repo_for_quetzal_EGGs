@@ -13,6 +13,8 @@ RUN apt-get update -y && \
                     gcc-9 \
                     g++ \
                     build-essential \
+                    libboost-all-dev \
+                    binutils libproj-dev gdal-bin \
                     cmake \
                     unzip \
                     tar \
