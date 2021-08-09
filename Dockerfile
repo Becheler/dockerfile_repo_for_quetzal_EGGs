@@ -6,7 +6,6 @@ LABEL maintainer="Arnaud Becheler" \
       
 ARG DEBIAN_FRONTEND=noninteractive
      
-ENV TZ=Europe/Berlin
 RUN apt-get update -y
 RUN apt-get install -y --no-install-recommends\
                     git \
@@ -20,7 +19,6 @@ RUN apt-get install -y --no-install-recommends\
                     ca-certificates
 
 # Install GDAL dependencies
-# Install GDAL dependencies
 RUN apt-get install -y libgdal-dev g++ --no-install-recommends && \
     apt-get clean -y
     
@@ -28,6 +26,23 @@ RUN apt-get install -y libgdal-dev g++ --no-install-recommends && \
 ENV CPLUS_INCLUDE_PATH=/usr/include/gdal
 ENV C_INCLUDE_PATH=/usr/include/gdal
 
+# Python 
+RUN set -xe \
+    apt-get update && apt-get install -y \
+    python3.8 \
+    python3-pip \
+    python3.8-venv \
+    --no-install-recommends
+
+RUN pip3 install --upgrade pip
+RUN pip3 install build twine pipenv numpy
+
+ENV PYTHON_BIN_PATH="$(python3 -m site --user-base)/bin"
+ENV PATH="$PATH:$PYTHON_BIN_PATH"
+
+RUN pip3 install GDAL==$(gdal-config --version)
+
+# Clean to make image smaller
 RUN apt-get autoclean && \
     apt-get autoremove && \
     apt-get clean && \
